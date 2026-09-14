@@ -32,6 +32,7 @@
                     <td class="text-end">
                         <a href="{{ route('users.show', $utilisateur) }}" class="btn btn-sm btn-outline-secondary">Voir</a>
                         <a href="{{ route('users.edit', $utilisateur) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                        <a href="{{ route('users.roles.edit', $utilisateur) }}" class="btn btn-sm btn-outline-success">Rôles</a>
                         <form action="{{ route('users.destroy', $utilisateur) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer cet utilisateur ?');">
                             @csrf
                             @method('DELETE')

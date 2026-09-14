@@ -39,6 +39,13 @@
             </a>
         </div>
     </div>
+    <div class="col-md-6 mb-3">
+    <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
+        <a href="{{ route('permissions.index') }}" class="btn btn-primary btn-lg">
+            Gérer les permissions
+        </a>
+    </div>
+</div>
 
     <div class="col-md-6 mb-3">
         <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
@@ -47,6 +54,7 @@
             </a>
         </div>
     </div>
+    
 </div>
 
     </div>

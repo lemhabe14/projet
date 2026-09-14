@@ -22,6 +22,7 @@
                 <tr>
                     <td>{{ $role->nom }}</td>
                     <td class="text-end">
+                        <a href="{{ route('roles.permissions.edit', $role) }}" class="btn btn-sm btn-outline-success">Permissions</a>
                         <a href="{{ route('roles.edit', $role) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
                         <form action="{{ route('roles.destroy', $role) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer ce rôle ?');">
                             @csrf
