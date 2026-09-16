@@ -9,14 +9,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $admin = Auth::user();
+        /** @var Utilisateur $user */
+        $user = Auth::user();
 
-       
-        $usersCount = Utilisateur::count();
-
-        return view('dashboard', [
-            'admin' => $admin,
-            'usersCount' => $usersCount,
+        return view('dashboard-user', [
+            'user' => $user,
+            'usersCount' => Utilisateur::count(),
         ]);
     }
 }

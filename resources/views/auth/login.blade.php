@@ -2,13 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion Administrateur</title>
+    <title>Page de Connexion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card p-4 shadow-sm" style="width: 400px;">
-            <h3 class="text-center mb-4">Connexion Administrateur</h3>
+            <h3 class="text-center mb-4">Page de Connexion</h3>
 
             @if ($errors->any())
                 <div class="alert alert-danger">
