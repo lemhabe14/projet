@@ -17,7 +17,7 @@
                 <th>Prénom</th>
                 <th>Email</th>
                 <th>Téléphone</th>
-                <th>Rôles</th>
+                <th>Permissions</th>
                 <th class="text-end">Actions</th>
             </tr>
         </thead>
@@ -29,10 +29,10 @@
                     <td>{{ $utilisateur->email }}</td>
                     <td>{{ $utilisateur->telephone }}</td>
                     <td>
-                        @forelse ($utilisateur->roles as $role)
-                            <span class="badge bg-primary">{{ $role->nom }}</span>
+                        @forelse ($utilisateur->roles->flatMap->permissions->unique('id') as $permission)
+                            <span class="badge bg-primary">{{ $permission->nom }}</span>
                         @empty
-                            <span class="text-muted">Aucun rôle</span>
+                            <span class="text-muted">Aucune permission</span>
                         @endforelse
                     </td>
                     <td class="text-end">
