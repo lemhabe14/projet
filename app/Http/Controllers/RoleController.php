@@ -10,7 +10,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::latest()->get();
+        $roles = Role::with('permissions')->latest()->get();
 
         return view('roles.index', [
             'roles' => $roles,

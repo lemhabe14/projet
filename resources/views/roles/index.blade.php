@@ -14,6 +14,7 @@
         <thead class="table-light">
             <tr>
                 <th>Nom du rôle</th>
+                <th>Permissions</th>
                 <th class="text-end">Actions</th>
             </tr>
         </thead>
@@ -21,6 +22,13 @@
             @forelse ($roles as $role)
                 <tr>
                     <td>{{ $role->nom }}</td>
+                    <td>
+                        @forelse ($role->permissions as $permission)
+                            <span class="badge bg-primary">{{ $permission->nom }}</span>
+                        @empty
+                            <span class="text-muted">Aucune permission</span>
+                        @endforelse
+                    </td>
                     <td class="text-end">
                         <a href="{{ route('roles.permissions.edit', $role) }}" class="btn btn-sm btn-outline-success">Permissions</a>
                         <a href="{{ route('roles.edit', $role) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
@@ -33,7 +41,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="2" class="text-center text-muted py-4">Aucun rôle enregistré.</td>
+                    <td colspan="3" class="text-center text-muted py-4">Aucun rôle enregistré.</td>
                 </tr>
             @endforelse
         </tbody>

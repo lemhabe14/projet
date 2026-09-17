@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $utilisateurs = Utilisateur::with('roles.permissions')->latest()->get();
+        $utilisateurs = Utilisateur::with('roles')->latest()->get();
 
         return view('users.index', [
             'utilisateurs' => $utilisateurs,
