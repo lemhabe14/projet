@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Utilisateur;
 use Illuminate\Database\Seeder;
@@ -14,6 +15,8 @@ class DatabaseSeeder extends Seeder
 
         $adminRole = Role::firstOrCreate(['nom' => 'admin']);
         $userRole  = Role::firstOrCreate(['nom' => 'utilisateur']);
+
+        $adminRole->permissions()->sync(Permission::pluck('id'));
 
         $admin = Utilisateur::create([
             'nom' => 'Admin', 'prenom' => 'Principal',
@@ -28,5 +31,12 @@ class DatabaseSeeder extends Seeder
             'adresse' => 'N/A', 'password' => 'user1234',
         ]);
         $user->roles()->attach($userRole);
+
+        $user1 = Utilisateur::create([
+            'nom' => 'Test', 'prenom' => 'User1',
+            'email' => 'user1@example.com', 'telephone' => '0600000002',
+            'adresse' => 'N/A', 'password' => 'user11234',
+        ]);
+        $user1->roles()->attach($userRole);
     }
 }
