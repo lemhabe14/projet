@@ -17,28 +17,34 @@
             </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
-                <a href="{{ url('/users') }}" class="btn btn-primary btn-lg">
-                    Gérer les utilisateurs
-                </a>
+        @if ($user->hasPermission('Consulter les utilisateurs'))
+            <div class="col-md-6 mb-3">
+                <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
+                    <a href="{{ url('/users') }}" class="btn btn-primary btn-lg">
+                        Gérer les utilisateurs
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
-                <a href="{{ route('permissions.index') }}" class="btn btn-primary btn-lg">
-                    Gérer les permissions
-                </a>
+        @endif
+        @if ($user->hasPermission('Consulter les permissions'))
+            <div class="col-md-6 mb-3">
+                <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
+                    <a href="{{ route('permissions.index') }}" class="btn btn-primary btn-lg">
+                        Gérer les permissions
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
 
-        <div class="col-md-6 mb-3">
-            <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
-                <a href="{{ route('roles.index') }}" class="btn btn-primary btn-lg">
-                    Gérer les rôles
-                </a>
+        @if ($user->hasPermission('Consulter les rôles'))
+            <div class="col-md-6 mb-3">
+                <div class="card p-4 shadow-sm d-flex justify-content-center align-items-center">
+                    <a href="{{ route('roles.index') }}" class="btn btn-primary btn-lg">
+                        Gérer les rôles
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 
 @endsection

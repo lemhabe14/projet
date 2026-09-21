@@ -6,7 +6,9 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3>Liste des utilisateurs</h3>
-    <a href="{{ route('users.create') }}" class="btn btn-primary">+ Ajouter un utilisateur</a>
+    @if (auth()->user()->hasPermission('Ajouter un utilisateur'))
+        <a href="{{ route('users.create') }}" class="btn btn-primary">+ Ajouter un utilisateur</a>
+    @endif
 </div>
 
 <div class="card shadow-sm">
@@ -36,14 +38,24 @@
                         @endforelse
                     </td>
                     <td class="text-end">
-                        <a href="{{ route('users.show', $utilisateur) }}" class="btn btn-sm btn-outline-secondary">Voir</a>
-                        <a href="{{ route('users.edit', $utilisateur) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
-                        <a href="{{ route('users.roles.edit', $utilisateur) }}" class="btn btn-sm btn-outline-success">Rôles</a>
-                        <form action="{{ route('users.destroy', $utilisateur) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer cet utilisateur ?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
-                        </form>
+                        @if (auth()->user()->hasPermission('Voir un utilisateur'))
+                            <a href="{{ route('users.show', $utilisateur) }}" class="btn btn-sm btn-outline-secondary">Voir</a>
+                        @endif
+                        @unless ($utilisateur->isAdmin())
+                            @if (auth()->user()->hasPermission('Modifier un utilisateur'))
+                                <a href="{{ route('users.edit', $utilisateur) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                            @endif
+                            @if (auth()->user()->hasPermission('Attribuer des rôles'))
+                                <a href="{{ route('users.roles.edit', $utilisateur) }}" class="btn btn-sm btn-outline-success">Rôles</a>
+                            @endif
+                            @if (auth()->user()->hasPermission('Supprimer un utilisateur'))
+                                <form action="{{ route('users.destroy', $utilisateur) }}" method="POST" class="d-inline" onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                </form>
+                            @endif
+                        @endunless
                     </td>
                 </tr>
             @empty

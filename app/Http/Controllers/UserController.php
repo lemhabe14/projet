@@ -39,6 +39,11 @@ class UserController extends Controller
 
     public function edit(Utilisateur $utilisateur)
     {
+        if ($utilisateur->isAdmin()) {
+            return redirect()->route('users.index')
+                ->with('error', 'Un administrateur ne peut pas être modifié.');
+        }
+
         return view('users.edit', [
             'utilisateur' => $utilisateur,
         ]);
@@ -46,6 +51,11 @@ class UserController extends Controller
 
     public function update(UpdateUtilisateurRequest $request, Utilisateur $utilisateur)
 {
+    if ($utilisateur->isAdmin()) {
+        return redirect()->route('users.index')
+            ->with('error', 'Un administrateur ne peut pas être modifié.');
+    }
+
     $utilisateur->update($request->validated());
 
     return redirect()->route('users.index')
@@ -54,6 +64,11 @@ class UserController extends Controller
 
     public function destroy(Utilisateur $utilisateur)
     {
+        if ($utilisateur->isAdmin()) {
+            return redirect()->route('users.index')
+                ->with('error', 'Un administrateur ne peut pas être supprimé.');
+        }
+
         $utilisateur->delete();
 
         return redirect()->route('users.index')

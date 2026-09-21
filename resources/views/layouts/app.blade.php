@@ -52,21 +52,27 @@
                         <i class="bi bi-house fs-5"></i> Accueil
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('users.index') }}" class="d-flex align-items-center gap-3 px-3 py-2 text-decoration-none text-dark {{ request()->routeIs('users.*') ? 'bg-light fw-semibold' : '' }}">
-                        <i class="bi bi-people fs-5"></i> Utilisateurs
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('roles.index') }}" class="d-flex align-items-center gap-3 px-3 py-2 text-decoration-none text-dark {{ request()->routeIs('roles.*') ? 'bg-light fw-semibold' : '' }}">
-                        <i class="bi bi-shield-lock fs-5"></i> Rôles
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('permissions.index') }}" class="d-flex align-items-center gap-3 px-3 py-2 text-decoration-none text-dark {{ request()->routeIs('permissions.*') ? 'bg-light fw-semibold' : '' }}">
-                        <i class="bi bi-key fs-5"></i> Permissions
-                    </a>
-                </li>
+                @if (auth()->user()->hasPermission('Consulter les utilisateurs'))
+                    <li>
+                        <a href="{{ route('users.index') }}" class="d-flex align-items-center gap-3 px-3 py-2 text-decoration-none text-dark {{ request()->routeIs('users.*') ? 'bg-light fw-semibold' : '' }}">
+                            <i class="bi bi-people fs-5"></i> Utilisateurs
+                        </a>
+                    </li>
+                @endif
+                @if (auth()->user()->hasPermission('Consulter les rôles'))
+                    <li>
+                        <a href="{{ route('roles.index') }}" class="d-flex align-items-center gap-3 px-3 py-2 text-decoration-none text-dark {{ request()->routeIs('roles.*') ? 'bg-light fw-semibold' : '' }}">
+                            <i class="bi bi-shield-lock fs-5"></i> Rôles
+                        </a>
+                    </li>
+                @endif
+                @if (auth()->user()->hasPermission('Consulter les permissions'))
+                    <li>
+                        <a href="{{ route('permissions.index') }}" class="d-flex align-items-center gap-3 px-3 py-2 text-decoration-none text-dark {{ request()->routeIs('permissions.*') ? 'bg-light fw-semibold' : '' }}">
+                            <i class="bi bi-key fs-5"></i> Permissions
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -74,6 +80,9 @@
     <div class="container mt-5">
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
         @yield('content')

@@ -27,4 +27,15 @@ class Utilisateur extends Authenticatable
     {
         return $this->roles()->where('nom', 'admin')->exists();
     }
+
+    public function hasPermission(string $nom): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        return $this->roles()->whereHas('permissions', function ($query) use ($nom) {
+            $query->where('nom', $nom);
+        })->exists();
+    }
 }

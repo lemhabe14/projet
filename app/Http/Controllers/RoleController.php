@@ -39,6 +39,11 @@ class RoleController extends Controller
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        if ($role->nom === 'admin') {
+            return redirect()->route('roles.index')
+                ->with('error', 'Le rôle admin ne peut pas être modifié.');
+        }
+
         $role->update($request->validated());
 
         return redirect()->route('roles.index')
@@ -47,6 +52,11 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        if ($role->nom === 'admin') {
+            return redirect()->route('roles.index')
+                ->with('error', 'Le rôle admin ne peut pas être supprimé.');
+        }
+
         $role->delete();
 
         return redirect()->route('roles.index')
