@@ -10,6 +10,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call(PermissionSeeder::class); // ← هذا هو السطر الوحيد الجديد المُضاف
+
         $adminRole = Role::firstOrCreate(['nom' => 'admin']);
         $userRole  = Role::firstOrCreate(['nom' => 'utilisateur']);
 

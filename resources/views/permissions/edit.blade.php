@@ -23,6 +23,11 @@
         @method('PUT')
 
         <div class="mb-3">
+            <label class="form-label">Fonctionnalité</label>
+            <input type="text" name="fonctionnalite" class="form-control" value="{{ old('fonctionnalite', $permission->fonctionnalite) }}">
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Nom de la permission</label>
             <input type="text" name="nom" class="form-control" value="{{ old('nom', $permission->nom) }}">
         </div>

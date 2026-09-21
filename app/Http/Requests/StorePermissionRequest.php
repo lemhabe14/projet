@@ -15,6 +15,7 @@ class StorePermissionRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255|unique:permissions,nom',
+            'fonctionnalite' => 'required|string|max:255',
         ];
     }
 

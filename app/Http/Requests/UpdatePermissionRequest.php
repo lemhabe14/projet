@@ -15,6 +15,7 @@ class UpdatePermissionRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255|unique:permissions,nom,' . $this->permission->id,
+            'fonctionnalite' => 'required|string|max:255',
         ];
     }
 
