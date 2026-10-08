@@ -31,6 +31,13 @@
 
                 <button type="submit" class="btn btn-primary w-100">Se connecter</button>
             </form>
+            <div class="text-center my-3">
+            <span>ou</span>
+            </div>
+
+            <a href="{{ route('keycloak.login') }}" class="btn btn-dark w-100">
+                Se connecter avec Keycloak
+           </a>
         </div>
     </div>
 </body>

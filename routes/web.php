@@ -15,6 +15,8 @@ Route::get('/', fn () => redirect('/login'));
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/auth/keycloak', [LoginController::class, 'redirectToKeycloak'])->name('keycloak.login');
+    Route::get('/auth/keycloak/callback', [LoginController::class, 'handleKeycloakCallback'])->name('keycloak.callback');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
