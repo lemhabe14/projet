@@ -10,7 +10,7 @@ class Utilisateur extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['nom', 'prenom', 'email', 'telephone', 'adresse', 'password'];
+    protected $fillable = ['nom', 'prenom', 'email', 'telephone', 'adresse', 'password', 'keycloak_id'];
     protected $hidden = ['password', 'remember_token'];
 
     protected function casts(): array

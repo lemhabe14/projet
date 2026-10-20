@@ -36,5 +36,11 @@ return [
         'client_secret' => env('OIDC_CLIENT_SECRET'),
         'redirect' => env('OIDC_REDIRECT_URI'),
     ],
+    'keycloak_admin' => [
+    'server_url' => env('KEYCLOAK_SERVER_URL'),
+    'realm' => env('KEYCLOAK_REALM'),
+    'client_id' => env('OIDC_CLIENT_ID'),
+    'client_secret' => env('OIDC_CLIENT_SECRET'),
+],
 
 ];

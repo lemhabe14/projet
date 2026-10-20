@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Utilisateur;
 use App\Http\Requests\StoreUtilisateurRequest;
 use App\Http\Requests\UpdateUtilisateurRequest;
+use App\Services\KeycloakAdminService;
 
 class UserController extends Controller
 {
@@ -22,13 +23,29 @@ class UserController extends Controller
         return view('users.create');
     }
 
-   public function store(StoreUtilisateurRequest $request)
-{
-    Utilisateur::create($request->validated());
+    public function store(StoreUtilisateurRequest $request, KeycloakAdminService $keycloak)
+    {
+        $data = $request->validated();
 
-    return redirect()->route('users.index')
-        ->with('success', 'Utilisateur ajouté avec succès.');
-}
+        $utilisateur = Utilisateur::create($data);
+
+        $keycloakId = $keycloak->createUser([
+            'email' => $data['email'],
+            'nom' => $data['nom'],
+            'prenom' => $data['prenom'],
+            'password' => $data['password'],
+        ]);
+
+        if ($keycloakId) {
+            $utilisateur->update(['keycloak_id' => $keycloakId]);
+
+            return redirect()->route('users.index')
+                ->with('success', 'Utilisateur ajouté avec succès (synchronisé avec Keycloak).');
+        }
+
+        return redirect()->route('users.index')
+            ->with('warning', 'Utilisateur ajouté localement, mais la synchronisation avec Keycloak a échoué. Vérifiez les logs.');
+    }
 
     public function show(Utilisateur $utilisateur)
     {
@@ -50,17 +67,17 @@ class UserController extends Controller
     }
 
     public function update(UpdateUtilisateurRequest $request, Utilisateur $utilisateur)
-{
-    if ($utilisateur->isAdmin()) {
+    {
+        if ($utilisateur->isAdmin()) {
+            return redirect()->route('users.index')
+                ->with('error', 'Un administrateur ne peut pas être modifié.');
+        }
+
+        $utilisateur->update($request->validated());
+
         return redirect()->route('users.index')
-            ->with('error', 'Un administrateur ne peut pas être modifié.');
+            ->with('success', 'Utilisateur modifié avec succès.');
     }
-
-    $utilisateur->update($request->validated());
-
-    return redirect()->route('users.index')
-        ->with('success', 'Utilisateur modifié avec succès.');
-}
 
     public function destroy(Utilisateur $utilisateur)
     {

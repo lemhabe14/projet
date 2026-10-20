@@ -46,6 +46,11 @@
             <input type="text" name="adresse" class="form-control" value="{{ old('adresse') }}">
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+
         <button type="submit" class="btn btn-primary">Enregistrer</button>
         <a href="{{ route('users.index') }}" class="btn btn-secondary">Annuler</a>
     </form>

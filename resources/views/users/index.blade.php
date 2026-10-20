@@ -41,6 +41,14 @@
                         @if (auth()->user()->hasPermission('Voir un utilisateur'))
                             <a href="{{ route('users.show', $utilisateur) }}" class="btn btn-sm btn-outline-secondary">Voir</a>
                         @endif
+                        @if (auth()->user()->isAdmin() && !$utilisateur->isAdmin())
+    <a
+        href="{{ route('users.password.edit', $utilisateur) }}"
+        class="btn btn-sm btn-outline-warning"
+    >
+        Mot de passe
+    </a>
+@endif
                         @unless ($utilisateur->isAdmin())
                             @if (auth()->user()->hasPermission('Modifier un utilisateur'))
                                 <a href="{{ route('users.edit', $utilisateur) }}" class="btn btn-sm btn-outline-primary">Modifier</a>

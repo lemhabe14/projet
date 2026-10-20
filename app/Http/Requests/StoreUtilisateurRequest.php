@@ -19,6 +19,7 @@ class StoreUtilisateurRequest extends FormRequest
             'email' => 'required|email|unique:utilisateurs,email',
             'telephone' => 'required|string|max:20',
             'adresse' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
         ];
     }
 
@@ -32,6 +33,8 @@ class StoreUtilisateurRequest extends FormRequest
             'email.unique' => 'Cet email est déjà utilisé.',
             'telephone.required' => 'Le téléphone est obligatoire.',
             'adresse.required' => 'L\'adresse est obligatoire.',
+            'password.required' => 'Le mot de passe est obligatoire.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
         ];
     }
 }
